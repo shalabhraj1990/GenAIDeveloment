@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "hello-mcp": {
+      "command": "uv",
+      "args": [
+        "run",
+        "S:\\Shalabh_Private\\QT\\GenAI\\7_3rd_Dec\\hello_mcp\\.venv\\Scripts\\python.exe",
+        "S:\\Shalabh_Private\\QT\\GenAI\\7_3rd_Dec\\hello_mcp\\hello.py"
+      ],
+      "cwd": "S:\\Shalabh_Private\\QT\\GenAI\\7_3rd_Dec\\hello_mcp",
+      "env": {
+        "ENV": "prod",
+        "LOG_LEVEL": "debug"
+      }
+    }
+  }
+}
