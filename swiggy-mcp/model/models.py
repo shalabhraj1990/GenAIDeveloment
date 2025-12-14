@@ -24,7 +24,7 @@ class Restaurant(BaseModel):
     location: Annotated[str, Field()]
     cuisine: Annotated[str | None, Field(default=None, description="Optional comment")] = None
     rating: Annotated[float, Field(ge=0, le=5)]
-    deliveryTime: Annotated[str, Field()]
+    #deliveryTime: Annotated[str | None, Field(description="delivery time")]  = None
 
 
 class OrderModel(BaseModel):
@@ -134,7 +134,7 @@ class Timeline(BaseModel):
         outForDelivery (datetime): When order left for delivery.
         delivered (datetime): Final delivery timestamp.
     """
-    orderPlaced: Annotated[datetime, Field(alias="orderPlaced")]
+    #orderPlaced: Annotated[datetime, Field(alias="orderPlaced")]
     restaurantAccepted: Annotated[datetime, Field(alias="restaurantAccepted")]
     foodReady: Annotated[datetime, Field(alias="foodReady")]
     outForDelivery: Annotated[datetime, Field(alias="outForDelivery")]
@@ -175,7 +175,7 @@ class Order(BaseModel):
     orderId: Annotated[str, Field(alias="orderId")]
     customerId: Annotated[str, Field(alias="customerId")]
     customerName: Annotated[str, Field(alias="customerName")]
-    orderDate: Annotated[datetime, Field(alias="orderDate")]
+    #orderDate: Annotated[datetime, Field(alias="orderDate")]
     status: Annotated[OrderStatus, Field()]
     restaurant: Restaurant
     items: Annotated[List[Item], Field()]

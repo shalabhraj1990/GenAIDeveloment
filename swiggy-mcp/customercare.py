@@ -1,3 +1,4 @@
+from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 from data.customers import CUSTOMERS
 from data.restaurants import RESTARAUNTS
@@ -24,8 +25,9 @@ def get_customer_summary(cusomer_id:str) -> Customer | None :
             return Customer(**customer)
 
     return None
+
 @mcp.tool()
-def get_order_information(order_id:str) -> Order :
+def get_order_information(order_id:str) -> Order | None :
     '''
     Docstring for get_order_information
     
@@ -40,7 +42,7 @@ def get_order_information(order_id:str) -> Order :
 
     return None
 @mcp.tool()
-def get_resturant_information(resturantr_id:str) -> Restaurant :
+def get_resturant_information(resturantr_id:str) -> Restaurant | None :
     '''
     Docstring for get_resturant_information
     
@@ -65,10 +67,7 @@ def get_refund_policy() -> str:
     :return: Description
     :rtype: str
     """
-    lines = []
-    with open("data/refundpolicy.md") as refund:
-        lines = refund.readlines()
-    return "\n".join(lines)
+    return read_markdown_file('data/refundpolicy.md')
 
 @mcp.resource("complaint://{ctype}")
 def get_complaint_resolution(ctype) -> str:
@@ -79,11 +78,32 @@ def get_complaint_resolution(ctype) -> str:
     :return: Description
     :rtype: str
     """
-    lines = []
-    with open("data/latetimedelivery.md") as complaint:
-        lines = complaint.readlines()
-    return "\n".join(lines)
+    return read_markdown_file('data/latetimedelivery.md')
 
+
+
+def read_markdown_file(file_path):
+    """
+    Reads the content of a Markdown file with UTF-8 encoding.
+
+    Args:
+        file_path (str): The path to the Markdown file.
+
+    Returns:
+        str: The content of the Markdown file as a string.
+    """
+    try:
+        current_dir = Path(__file__).parent
+        full_file_path = current_dir.joinpath(file_path) 
+        with open(full_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        return content
+    except FileNotFoundError:
+        print(f"Error: The file '{full_file_path}' was not found.")
+        return None
+    except Exception as e:
+        print(f"An error occurred while reading the file: {e}")
+        return None
     
 if __name__ == "__main__":
     mcp.run(transport="stdio")
