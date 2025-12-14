@@ -57,6 +57,13 @@ def get_resturant_information(resturantr_id:str) -> Restaurant | None :
 
     return None
 
+@mcp.tool()
+def get_refund_policy_info() -> str:
+    return get_refund_policy()
+
+@mcp.tool()
+def get_complaint_resolution_info() -> str:
+    return get_complaint_resolution()
 
 ##resouces used by LLM for resoning
 @mcp.resource("policy://refund")
