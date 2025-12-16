@@ -113,5 +113,6 @@ def read_markdown_file(file_path):
         return None
     
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    #mcp.run(transport="stdio")
+    mcp.run(transport="streamable-http")
         
