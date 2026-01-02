@@ -1,3 +1,4 @@
+import asyncio
 from fastmcp import FastMCP,Context
 from fastapi import FastAPI
 import uvicorn
@@ -11,6 +12,13 @@ def add(a:int , b:int) -> int:
 @mcp.tool()
 def subtract(a:int , b:int) -> int:
     return a - b
+
+@mcp.tool()
+async def some_long_running(a:int , b:int , ctx:Context) -> int:
+    ctx.info("staring long running code")
+    asyncio.sleep(0.1)
+    ctx.info("Fineshed long running task")
+    return a * b
 
 mcp_app = mcp.http_app(path="/")
 

@@ -1,5 +1,7 @@
 from mcp.server.fastmcp import FastMCP
+from fastapi import FastAPI
 
+app = FastAPI()
 mcp = FastMCP("steamable-http-mcp")
 @mcp.tool()
 def add(a:int , b:int) -> int|None :
@@ -26,6 +28,23 @@ def echo(message:str) -> str | None :
     '''
     return f"you typed :{message}"
 
+@app.get('/')
+def read_root():
+    return {"hello":"world"}
+
+#lifecycle manager
+# @asynccontextmanager
+# async def combined_lifespan(app: FastAPI):
+#     #Run both lifespan
+#     async with app_lifespan(app):
+#         async with mcp_app.lifespan(app):
+#             yield
+
+#mount
+#mcp_app = mcp.http_app(path='/mcp')
+mcp_app = mcp.streamable_http_app()
+app.mount("/mcp",mcp_app)
+ 
 
 
 if __name__ == "__main__":
